@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-annotation-pod
+  annotations:
+    owner: arturo@ahuacatl.org
+    git-commit: bda0cee # useful for automation stuff
+
+spec:
+  containers:
+  - name: nginx
+    image: nginx

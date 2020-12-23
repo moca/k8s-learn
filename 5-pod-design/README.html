@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Labels &comma; Selectors &amp; Annotations</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="labels--selectors--annotations">Labels , Selectors &amp; Annotations</h1>
+<h2 id="labels">Labels</h2>
+<p>Key-value pairs attacehes to K8s objects.They are used for identified various attributes of objects which can in turn be used to select anf group various subsets of those objects.</p>
+<p>We attach labels to objects by annotating them in <code>metadata.labels</code>.</p>
+<p>To see the labels you can use:</p>
+<ul>
+<li><code>kubectl get pods --show-labels</code></li>
+<li><code>kubectl describe pod &lt;pod-name&gt;</code></li>
+</ul>
+<h2 id="selectors">Selectors</h2>
+<p>Selectors are used for identifying and selecting a specific group of objects using their labels.</p>
+<p>Three methods to use selectors :</p>
+<ul>
+<li><em>Simple operators</em> via  <code>kubectl get &lt;object-type&gt; -l &lt;key&gt;OP&lt;value&gt;</code>, wher OP can be <code>==</code>, <code>!=</code></li>
+<li><em>Set based</em>  <code>-l key in (val1,val2)</code></li>
+<li><em>Chained selectors</em> via a comma-separated labels  <code>-l key1=val1, key2=val2</code></li>
+</ul>
+<h2 id="annotations">Annotations</h2>
+<p>Similar to labels, used to store custom metadata related to declared objects.
+However, unlike labels, annotations cannot be used  to select or group objects in Kubernetes.
+External tools can read, write, and interact with annotatoins.</p>
+<p>We can attach annotations to objects using <code>metadata.annotations</code>.</p>
+<h1 id="deployments">Deployments</h1>
+<p>Deploymets provide a way to declarative manage a dynamic set of replica pods. They provide powerful functionality such as scaling and rolling updates.</p>
+<p><strong>A deployment defines a desired state</strong> for the replica pods. The cluster will constantlu work to maintain that desired state, creating, removing, and modifying the replica pods accordingly.</p>
+<p>Three core items in the description of a deployment:</p>
+<ul>
+<li><code>spec.replicas</code> - the desired number of replica pods to deploy and manage</li>
+<li><code>spec.template</code> - which is vey similar to a pod descriptor</li>
+<li><code>spec.selector</code> - the deployment will manage all pods whos labels match this selector</li>
+</ul>
+<h2 id="rolling-updates">Rolling updates</h2>
+<p>Rolling updates provide a way <strong>to update a deployment to a new container version</strong> by gradually update replicas.</p>
+<p>To execute a rolling update, we can use the following command:</p>
+<pre><code class="language-bash"><div>kubectl <span class="hljs-built_in">set</span> image deployment/&lt;deployment-name&gt; &lt;container-name&gt; = &lt;image-name&gt; --record
+</div></code></pre>
+<p>💡 <em>The <code>--record</code> flag records the information about the update so that in can be rolled back later</em></p>
+<h2 id="rollback">Rollback</h2>
+<p>To revert to a previous state we can first get a lit of previous updates with <code>kubectl rollout history</code></p>
+<pre><code class="language-bash"><div>kubectl rollout <span class="hljs-built_in">history</span> deployment/&lt;deployment-name&gt;
+</div></code></pre>
+<p>The revision flag will give more information on a specific revision number:</p>
+<pre><code class="language-bash"><div>kubectl rollout <span class="hljs-built_in">history</span> deployment/&lt;deployment-name&gt; --revision &lt;revision-number&gt;
+</div></code></pre>
+<p>To rollback to the last revision use <code>kubectl rollout undo</code>:
+<code>kubectl rollout undo deployment/&lt;deploymenr-name&gt;</code></p>
+<p>To rollback to a specific version use <code>--to-revision</code> flag:
+<code>kubectl rollout undo deployment/&lt;deploymenr-name&gt; --to-revision &lt;revision-number&gt;</code></p>
+<h1 id="jobs-and-cronjobs">Jobs and CronJobs</h1>
+<p>Jobs can be used to reliably execute a workload until completes. The job will create one or more pods. Whenthe job is finished, the container(s) will exit and the pod(s) will enter the completed state.</p>
+
+    </body>
+    </html>
