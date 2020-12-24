@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: ClusterIP # most common type in production scenario
+  selector: # Use the selector to specify which pods we want to expose
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 8080 # This is the port for the service (not the pods)
+    targetPort: 80 # This is the port were containers are listening
