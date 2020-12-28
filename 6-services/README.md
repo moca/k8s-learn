@@ -65,4 +65,3 @@ From/to selectors are used to specify which traffci source(s) and destination(s)
 - **podSelector**: Matches the traffic from/to pods with match the selector
 - **namespaceSelector**: Matches the  traffic from/to pods within namespaces which match the selector. Note that when podSelector and namespaceSelector are both present the matching pods must also be within a matching namespace.
 - **ipBlock** : Specified a CIDR range of IPs that will match the rule. This is mostly used for traffic from/to outside the cluster.
-
