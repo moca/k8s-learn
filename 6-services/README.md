@@ -28,9 +28,9 @@ kubectl get endpoints [<service-name>]
 This are the most common types of service types : 
 
 - **`ClusterIP`** exposes the service within the cluster using an internal IP address. The service is also accesible using the Cluster DNS.
-- **`NodePort`**  the service is exposed externally viaa a port which listens on each node in the cluster.
+- **`NodePort`**  the service is exposed externally via a port which listens on each node in the cluster.
 - `LoadBalancer` this only works with cloud providers. The service is exposed trough a load balancer that is created on the cloud platform.
-- `ExternalName` This maps the servivce to an external address. It is used to allow resouces within the cluster to access thins outside the cluster trough a service. **This only sets up a DNS mapping. I does not proxy traffic.**
+- `ExternalName` This maps the service to an external address. It is used to allow resouces within the cluster to access things outside the cluster trough a service. **This only sets up a DNS mapping. I does not proxy traffic.**
 
 # Network Policies
 
